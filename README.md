@@ -1,24 +1,57 @@
-# README
+# DB 設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users table
 
-Things you may want to cover:
+| Column             | Type                | Options                 |
+|--------------------|---------------------|-------------------------|
+| nickname           | string              | null: false             |
+| email              | string              | null: false             |
+| password           | string              | null: false             |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :items
 
-* Configuration
+## items table
 
-* Database creation
+| Column                              | Type       | Options           |
+|-------------------------------------|------------|-------------------|
+| item-name                           | string     | null: false       |
+| item-info                           | string     | null: false       |
+| seller                              | string     | null: false       |
+| user                                | references | foreign_key: true |
 
-* Database initialization
+### Association
 
-* How to run the test suite
+- belongs_to :users
+- has_many :oders
 
-* Services (job queues, cache servers, search engines, etc.)
+## orders table
 
-* Deployment instructions
+| Column                              | Type       | Options           |
+|-------------------------------------|------------|-------------------|
+| buy-item-info                       | string     | null: false       |
+| item-payment                        | string     | null: false       |
+| credit-card                         | string     | null: false       |
+| item                                | references | foreign_key: true |
 
-* ...
+### Association
+
+- belongs_to :items
+- has_one :shipping_addresses
+
+## shipping_addresses
+
+| Column                              | Type       | Options           |
+|-------------------------------------|------------|-------------------|
+| postal-code                         | string     | null: false       |
+| prefecture                          | string     | null: false       |
+| city                                | string     | null: false       |
+| addresses                           | string     | null: false       |
+| building                            | string     | null: false       |
+| phone-number                        | string     | null: false       |
+| order                               | references | foreign_key: true |
+
+### Association
+
+- has_one :oders
