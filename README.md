@@ -8,29 +8,29 @@
 | email              | string              | unique: true            |
 | password           | string              | null: false             |
 | encrypted_password | string              | null: false             |
-| last-name          | string              | null: false             |
-| first-name         | string              | null: false             |
-| last-name-kana     | string              | null: false             |
-| first-name-kana    | string              | null: false             |
+| last_name          | string              | null: false             |
+| first_name         | string              | null: false             |
+| last_name_kana     | string              | null: false             |
+| first_name_kana    | string              | null: false             |
 | birth              | date                | null: false             |
 
 ### Association
 
 - has_many :items
-- has_many :oders
+- has_many :orders
 
 ## items table
 
 | Column                              | Type       | Options           |
 |-------------------------------------|------------|-------------------|
-| item-name                           | string     | null: false       |
-| item-info                           | string     | null: false       |
-| item-category_id                    | integer    | null: false       |
-| item-sales-status_id                | integer    | null: false       |
-| item-detail_id                      | integer    | null: false       |
-| item-shipping-fee-status_id         | integer    | null: false       |
-| item-prefecture_id                  | integer    | null: false       |
-| sell-price                          | string     | null: false       |
+| item_name                           | string     | null: false       |
+| item_info                           | string     | null: false       |
+| item_category_id                    | integer    | null: false       |
+| item_sales_status_id                | integer    | null: false       |
+| item_detail_id                      | integer    | null: false       |
+| item_shipping-fee-status_id         | integer    | null: false       |
+| item_prefecture_id                  | integer    | null: false       |
+| sell_price                          | string     | null: false       |
 | user                                | references | foreign_key: true |
 
 ### Association
@@ -55,14 +55,14 @@
 
 | Column                              | Type       | Options           |
 |-------------------------------------|------------|-------------------|
-| postal-code                         | string     | null: false       |
-| item-prefecture_id                  | integer    | null: false       |
+| postal_code                         | string     | null: false       |
+| item_prefecture_id                  | integer    | null: false       |
 | city                                | string     | null: false       |
 | addresses                           | string     | null: false       |
 | building                            | string     |                   |
-| phone-number                        | string     | null: false       |
+| phone_number                        | string     | null: false       |
 | order                               | references | foreign_key: true |
 
 ### Association
 
-- belongs_to :oder
+- belongs_to :order
