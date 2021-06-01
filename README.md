@@ -7,6 +7,7 @@
 | nickname           | string              | null: false             |
 | email              | string              | unique: true            |
 | password           | string              | null: false             |
+| encrypted_password | string              | null: false             |
 | last-name          | string              | null: false             |
 | first-name         | string              | null: false             |
 | last-name-kana     | string              | null: false             |
@@ -30,16 +31,12 @@
 | item-shipping-fee-status_id         | integer    | null: false       |
 | item-prefecture_id                  | integer    | null: false       |
 | sell-price                          | string     | null: false       |
-| item-price                          | string     | null: false       |
-| add-tax-price                       | string     | null: false       |
-| profit                              | string     | null: false       |
-| item-scheduled-delivery             | string     | null: false       |
 | user                                | references | foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_one :oder
+- has_one :order
 
 ## orders table
 
