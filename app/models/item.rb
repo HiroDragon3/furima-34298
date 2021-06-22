@@ -10,13 +10,18 @@ class Item < ApplicationRecord
   belongs_to :item_scheduled_delivery
 
   #空の投稿を保存できないようにする
-  validates :title, :text, presence: true
-
+  validates :image, :item_name, presence: true, unless: :was_attached?
+  
+  def was_attached?
+    self.image.attached?
+  end
+  
   #ジャンルの選択が「--」の時は保存できないようにする
-  validates :item_category_id, numericality: { other_than: 1 } 
-  validates :item_sales_status_id, numericality: { other_than: 1 } 
-  validates :item_shipping_fee_id, numericality: { other_than: 1 } 
-  validates :item_prefecture_id, numericality: { other_than: 1 } 
-  validates :item_scheduled_delivery_id, numericality: { other_than: 1 } 
-
+  with_options numericality: { other_than: 1 } do
+    validates :item_category_id
+    validates :item_sales_status_id
+    validates :item_shipping_fee_status_id
+    validates :item_prefecture_id
+    validates :item_scheduled_delivery_id
+  end
 end
