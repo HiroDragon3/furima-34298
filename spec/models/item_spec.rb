@@ -10,13 +10,12 @@ RSpec.describe Item, type: :model do
       it '全ての項目が存在すれば保存できる' do
         expect(@item).to be_valid
       end
-
       it "商品名があれば投稿は保存される" do
         @item.item_name = 'あ'
         expect(@item).to be_valid
       end
       it "商品の説明があれば投稿は保存される" do
-        @item.item_name = 'あ'
+        @item.item_info = 'あ'
         expect(@item).to be_valid
       end
       it "カテゴリーがあれば投稿は保存される" do
@@ -46,20 +45,15 @@ RSpec.describe Item, type: :model do
     end
 
     context "投稿が保存できない時" do
-      it "画像がないと保存はできない" do
-        @item.image = nil
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Image can't be blank")
-      end
       it "商品名がないと保存はできない" do
         @item.item_name = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include()
+        expect(@item.errors.full_messages).to include("Item name can't be blank")
       end
       it "商品の説明がないと保存はできない" do
         @item.item_info = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include()
+        expect(@item.errors.full_messages).to include("Item info can't be blank")
       end
       it "カテゴリーがないと保存はできない" do
         @item.item_category_id = ''
@@ -89,7 +83,7 @@ RSpec.describe Item, type: :model do
       it "販売価格がないと保存はできない" do
         @item.item_price = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include()
+        expect(@item.errors.full_messages).to include("Item price can't be blank")
       end
     end
   end

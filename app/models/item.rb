@@ -9,14 +9,13 @@ class Item < ApplicationRecord
   belongs_to :item_prefecture
   belongs_to :item_scheduled_delivery
 
-  #空の投稿を保存できないようにする
-  validates :image, :item_name, presence: true, unless: :was_attached?
-  
-  def was_attached?
-    self.image.attached?
+  with_options presence: true do
+    validates :image
+    validates :item_name
+    validates :item_info
+    validates :item_price
   end
   
-  #ジャンルの選択が「--」の時は保存できないようにする
   with_options numericality: { other_than: 1 } do
     validates :item_category_id
     validates :item_sales_status_id
