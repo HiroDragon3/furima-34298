@@ -29,7 +29,7 @@
 | item_detail_id                      | integer    | null: false       |
 | item_shipping_fee_status_id         | integer    | null: false       |
 | item_prefecture_id                  | integer    | null: false       |
-| sell_price                          | integer    | null: false       |
+| item_price                          | integer    | null: false       |
 | user                                | references | foreign_key: true |
 
 ### Association
