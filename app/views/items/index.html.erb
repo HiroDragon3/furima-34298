@@ -120,16 +120,14 @@
     <ul class='item-lists'>
       <% @item.each do |item| %>
         <li class='list'>
-          <%= link_to items_path(item.id), method: :get do %>
+          <%= link_to "#" do %>
           <div class='item-img-content'>
             <%= image_tag item.image, class: "item-img" %>
-            <% if @user_item %>
-              <% if item.order.present? %>
+              <%# if item.order.present? %>
               <div class='sold-out'>
                 <span>Sold Out!!</span>
               </div>
-              <% end %>
-            <% end %>
+              <%# end %>
           </div>
           <div class='item-info'>
             <h3 class='item-name'>
