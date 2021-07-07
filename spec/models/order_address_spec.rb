@@ -30,11 +30,14 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address).to be_valid
       end
       it "建物名が空の場合でも保存できること" do
-        @order_address.building_name = 'あ'
+        @order_address.building_name = ''
         expect(@order_address).to be_valid
       end
       it "電話番号があれば保存できること" do
         @order_address.phone_number = '00000000000'
+        expect(@order_address).to be_valid
+      end
+      it "tokenがあれば保存できること" do
         expect(@order_address).to be_valid
       end
     end
@@ -84,6 +87,21 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.phone_number = '０００００００００００'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Phone number is not a number")
+      end
+      it 'tokenが空では保存できないこと' do
+        @order_address.token = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'user_idが空では保存できないこと' do
+        @order_address.user_id = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空では保存できないこと' do
+        @order_address.item_id = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
