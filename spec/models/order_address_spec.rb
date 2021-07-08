@@ -17,8 +17,12 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.postal_code = '123-4567'
         expect(@order_address).to be_valid
       end
+      it "郵便番号にハイフンがあれば保存ができること" do
+        @order_address.postal_code = '123-4567'
+        expect(@order_address).to be_valid
+      end
       it "都道府県があれば保存できる" do
-        @order_address.item_prefecture_id = '2'
+        @order_address.item_prefecture_id = 2
         expect(@order_address).to be_valid
       end
       it "市区町村があれば保存できる" do
@@ -37,6 +41,10 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.phone_number = '00000000000'
         expect(@order_address).to be_valid
       end
+      it "電話番号が11桁以内の数値のみであれば保存できること" do
+        @order_address.phone_number = '00000000000'
+        expect(@order_address).to be_valid
+      end
       it "tokenがあれば保存できること" do
         expect(@order_address).to be_valid
       end
@@ -48,8 +56,8 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Postal code can't be blank")
       end
-      it '郵便番号が半角のハイフンを含んだ正しい形式でないと保存できないこと' do
-        @order_address.postal_code = '123ー4567'
+      it '郵便番号にハイフンがないと保存できないこと' do
+        @order_address.postal_code = '1234567'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
       end
@@ -83,10 +91,15 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Phone number is not a number")
       end
-      it '電話番号が11桁以内の数値のみでなければ保存できないこと' do
+      it '電話番号が全角だと保存できないこと' do
         @order_address.phone_number = '０００００００００００'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Phone number is not a number")
+      end
+      it '電話番号が11桁以内の数値のみでなければ保存できないこと' do
+        @order_address.phone_number = '000000'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Phone number is invalid. Only numbers within 11 numbers")
       end
       it 'tokenが空では保存できないこと' do
         @order_address.token = nil

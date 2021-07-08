@@ -7,7 +7,7 @@ class OrderAddress < ApplicationRecord
     validates :item_prefecture_id
     validates :municipality
     validates :address
-    validates :phone_number, numericality: { only_integer: true }
+    validates :phone_number, numericality: { only_integer: true }, format: {with: /\A\d{11}\z/, message: "is invalid. Only numbers within 11 numbers"}
     validates :token
     validates :user_id
     validates :item_id

@@ -40,7 +40,7 @@ class OrdersController < ApplicationController
   end
   
   def contributor_confirmation
-    redirect_to root_path if current_user.id == @item.user.id
+    redirect_to root_path if current_user.id == @item.user.id || @item.order.present?
   end
 
   def sold_out
