@@ -18,8 +18,9 @@ class Item < ApplicationRecord
   end
 
   validates :item_price, numericality: { with: /\A[0-9]+\z/, message: 'Half-width number' }
-  validates :item_price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, message: 'Out of setting range' }
-  
+  validates :item_price,
+            numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, message: 'Out of setting range' }
+
   with_options numericality: { other_than: 1 } do
     validates :item_category_id
     validates :item_sales_status_id
