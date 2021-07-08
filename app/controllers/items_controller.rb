@@ -2,9 +2,10 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_action, only: [:show, :edit, :update, :destroy]
   before_action :contributor_confirmation, only: [:edit, :update, :destroy]
+  before_action :sold_out, only: [:edit, :update, :destroy]
 
   def index
-    @items = Item.order("created_at DESC")
+    @items = Item.order('created_at DESC')
   end
 
   def new
@@ -35,15 +36,15 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if @item.destroy
-      redirect_to root_path
-    end
+    @item.destroy
+    redirect_to root_path
   end
 
   private
 
   def item_params
-    params.require(:item).permit(:image, :item_name, :item_info, :item_category_id, :item_sales_status_id, :item_shipping_fee_status_id, :item_prefecture_id, :item_scheduled_delivery_id, :item_price).merge(user_id: current_user.id)
+    params.require(:item).permit(:image, :item_name, :item_info, :item_category_id, :item_sales_status_id,
+                                 :item_shipping_fee_status_id, :item_prefecture_id, :item_scheduled_delivery_id, :item_price).merge(user_id: current_user.id)
   end
 
   def set_action
@@ -52,5 +53,9 @@ class ItemsController < ApplicationController
 
   def contributor_confirmation
     redirect_to root_path unless current_user.id == @item.user.id
+  end
+
+  def sold_out
+    redirect_to root_path if @item.order.present?
   end
 end
