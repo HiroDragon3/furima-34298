@@ -61,15 +61,6 @@ ActiveRecord::Schema.define(version: 2021_07_07_151818) do
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
-  create_table "order_addresses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "item_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["item_id"], name: "index_order_addresses_on_item_id"
-    t.index ["user_id"], name: "index_order_addresses_on_user_id"
-  end
-
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "item_id"
@@ -100,8 +91,6 @@ ActiveRecord::Schema.define(version: 2021_07_07_151818) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "orders"
   add_foreign_key "items", "users"
-  add_foreign_key "order_addresses", "items"
-  add_foreign_key "order_addresses", "users"
   add_foreign_key "orders", "items"
   add_foreign_key "orders", "users"
 end
